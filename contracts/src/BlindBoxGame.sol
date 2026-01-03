@@ -21,6 +21,8 @@ contract BlindBoxGame {
 
     State public state;
 
+    event Joined(address indexed player);
+
     constructor(
         address _playerA,
         bytes32 _commitHash,
