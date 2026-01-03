@@ -74,7 +74,7 @@ contract BlindBoxGame {
     // ------------------------
     // CHOOSE CARD
     // ------------------------
-    function choose(uint8 card) external {
+    function choose(uint8 card) external onlyPlayers {
         require(
             state == State.JOINED || state == State.CHOOSING,
             "Wrong state"
