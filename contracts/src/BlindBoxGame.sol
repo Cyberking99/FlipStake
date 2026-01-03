@@ -88,4 +88,13 @@ contract BlindBoxGame {
 
         emit CardChosen(msg.sender, card);
     }
+
+    // ------------------------
+    // INTERNAL
+    // ------------------------
+    function _payout(address winner) internal {
+        state = State.FINISHED;
+        (bool ok, ) = winner.call{value: address(this).balance}("");
+        require(ok, "Payout failed");
+    }
 }
