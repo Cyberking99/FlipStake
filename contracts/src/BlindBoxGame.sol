@@ -11,4 +11,6 @@ contract BlindBoxGame {
     }
     address public immutable playerA;
     address public playerB;
+
+    uint256 public immutable stake;
 }
