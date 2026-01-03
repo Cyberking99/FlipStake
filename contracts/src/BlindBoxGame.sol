@@ -39,4 +39,17 @@ contract BlindBoxGame {
 
         state = State.CREATED;
     }
+
+    // ------------------------
+    // JOIN
+    // ------------------------
+    function join() external payable {
+        require(state == State.CREATED, "Game not joinable");
+        require(block.timestamp <= joinDeadline, "Join timeout");
+        require(msg.value == stake, "Incorrect stake");
+        require(msg.sender != playerA, "Creator cannot join");
+
+        playerB = msg.sender;
+        state = State.JOINED;
+    }
 }
