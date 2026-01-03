@@ -18,4 +18,6 @@ contract BlindBoxGame {
     uint256 public immutable revealDeadline;
 
     bytes32 public immutable commitHash;
+
+    State public state;
 }
