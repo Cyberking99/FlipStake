@@ -90,6 +90,36 @@ contract BlindBoxGame {
     }
 
     // ------------------------
+    // REVEAL
+    // ------------------------
+    function reveal(bytes32 secret, uint8 winningCard) external {
+        require(state == State.CHOOSING, "Not ready to reveal");
+        require(hasChosenA && hasChosenB, "Both must choose");
+        require(block.timestamp <= revealDeadline, "Reveal timeout");
+        require(winningCard == 0 || winningCard == 1, "Invalid card");
+
+        require(
+            keccak256(abi.encodePacked(secret, winningCard)) == commitHash,
+            "Invalid reveal"
+        );
+
+        address winner;
+
+        if (choiceA == winningCard && choiceB != winningCard) {
+            winner = playerA;
+        } else if (choiceB == winningCard && choiceA != winningCard) {
+            winner = playerB;
+        } else {
+            // Both chose same card → creator wins by default
+            winner = playerA;
+        }
+
+        state = State.REVEALED;
+
+        _payout(winner);
+    }
+
+    // ------------------------
     // INTERNAL
     // ------------------------
     function _payout(address winner) internal {
