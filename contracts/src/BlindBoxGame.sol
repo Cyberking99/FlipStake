@@ -22,6 +22,9 @@ contract BlindBoxGame {
     uint8 public choiceA;
     uint8 public choiceB;
 
+    bool public hasChosenA;
+    bool public hasChosenB;
+
     State public state;
 
     event Joined(address indexed player);
