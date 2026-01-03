@@ -130,4 +130,9 @@ contract BlindBoxGame {
         (bool ok, ) = winner.call{value: address(this).balance}("");
         require(ok, "Payout failed");
     }
+
+    function _refund(address player) internal {
+        (bool ok, ) = player.call{value: address(this).balance}("");
+        require(ok, "Refund failed");
+    }
 }
