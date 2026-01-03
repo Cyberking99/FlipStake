@@ -30,6 +30,7 @@ contract BlindBoxGame {
     event Joined(address indexed player);
     event CardChosen(address indexed player, uint8 card);
     event Revealed(address indexed winner);
+    event Refunded(address indexed player);
 
     constructor(
         address _playerA,
