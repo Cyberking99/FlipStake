@@ -28,6 +28,7 @@ contract BlindBoxGame {
     State public state;
 
     event Joined(address indexed player);
+    event CardChosen(address indexed player, uint8 card);
 
     constructor(
         address _playerA,
