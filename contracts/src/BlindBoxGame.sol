@@ -19,6 +19,9 @@ contract BlindBoxGame {
 
     bytes32 public immutable commitHash;
 
+    uint8 public choiceA;
+    uint8 public choiceB;
+
     State public state;
 
     event Joined(address indexed player);
