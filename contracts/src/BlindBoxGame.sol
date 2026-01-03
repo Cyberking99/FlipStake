@@ -62,4 +62,27 @@ contract BlindBoxGame {
 
         emit Joined(msg.sender);
     }
+
+    // ------------------------
+    // CHOOSE CARD
+    // ------------------------
+    function choose(uint8 card) external {
+        require(
+            state == State.JOINED || state == State.CHOOSING,
+            "Wrong state"
+        );
+        require(card == 0 || card == 1, "Invalid card");
+
+        if (msg.sender == playerA) {
+            require(!hasChosenA, "Already chosen");
+            choiceA = card;
+            hasChosenA = true;
+        } else {
+            require(!hasChosenB, "Already chosen");
+            choiceB = card;
+            hasChosenB = true;
+        }
+
+        state = State.CHOOSING;
+    }
 }
