@@ -20,4 +20,23 @@ contract BlindBoxGame {
     bytes32 public immutable commitHash;
 
     State public state;
+
+    constructor(
+        address _playerA,
+        bytes32 _commitHash,
+        uint256 _stake,
+        uint256 _joinTimeout,
+        uint256 _revealTimeout
+    ) payable {
+        require(msg.value == _stake, "Stake not deposited");
+
+        playerA = _playerA;
+        commitHash = _commitHash;
+        stake = _stake;
+
+        joinDeadline = block.timestamp + _joinTimeout;
+        revealDeadline = joinDeadline + _revealTimeout;
+
+        state = State.CREATED;
+    }
 }
