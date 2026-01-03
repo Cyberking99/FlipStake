@@ -117,6 +117,8 @@ contract BlindBoxGame {
 
         state = State.REVEALED;
 
+        emit Revealed(winner);
+
         _payout(winner);
     }
 
