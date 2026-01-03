@@ -32,6 +32,11 @@ contract BlindBoxGame {
     event Revealed(address indexed winner);
     event Refunded(address indexed player);
 
+    modifier onlyPlayers() {
+        require(msg.sender == playerA || msg.sender == playerB, "Not a player");
+        _;
+    }
+
     constructor(
         address _playerA,
         bytes32 _commitHash,
