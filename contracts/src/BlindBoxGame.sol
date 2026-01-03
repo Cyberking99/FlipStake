@@ -85,5 +85,7 @@ contract BlindBoxGame {
         }
 
         state = State.CHOOSING;
+
+        emit CardChosen(msg.sender, card);
     }
 }
