@@ -53,5 +53,7 @@ contract BlindBoxGame {
 
         playerB = msg.sender;
         state = State.JOINED;
+
+        emit Joined(msg.sender);
     }
 }
