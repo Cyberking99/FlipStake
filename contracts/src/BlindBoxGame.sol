@@ -9,4 +9,6 @@ contract BlindBoxGame {
         REVEALED,
         FINISHED
     }
+    address public immutable playerA;
+    address public playerB;
 }
