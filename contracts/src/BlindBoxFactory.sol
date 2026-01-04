@@ -30,5 +30,7 @@ contract BlindBoxFactory {
 
         gameAddress = address(game);
         games.push(gameAddress);
+
+        emit GameCreated(gameAddress, msg.sender, stake);
     }
 }
