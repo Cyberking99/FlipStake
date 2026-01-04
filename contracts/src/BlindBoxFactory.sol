@@ -33,4 +33,8 @@ contract BlindBoxFactory {
 
         emit GameCreated(gameAddress, msg.sender, stake);
     }
+
+    function allGames() external view returns (address[] memory) {
+        return games;
+    }
 }
