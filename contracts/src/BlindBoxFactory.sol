@@ -6,6 +6,12 @@ import "./BlindBoxGame.sol";
 contract BlindBoxFactory {
     address[] public games;
 
+    event GameCreated(
+        address indexed game,
+        address indexed creator,
+        uint256 stake
+    );
+
     function createGame(
         bytes32 commitHash,
         uint256 stake,
