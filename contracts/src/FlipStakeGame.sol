@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract FlipStakeGame {
+contract FlipStakeGame is ReentrancyGuard {
     enum State {
         CREATED,
         JOINED,
