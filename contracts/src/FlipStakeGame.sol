@@ -101,7 +101,7 @@ contract FlipStakeGame is ReentrancyGuard {
     // ------------------------
     // REVEAL
     // ------------------------
-    function reveal(bytes32 secret, uint8 winningCard) external {
+    function reveal(bytes32 secret, uint8 winningCard) external nonReentrant {
         require(state == State.CHOOSING, "Not ready to reveal");
         require(hasChosenA && hasChosenB, "Both must choose");
         require(block.timestamp <= revealDeadline, "Reveal timeout");
