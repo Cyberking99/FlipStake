@@ -20,7 +20,7 @@ contract FlipStakeFactory {
     ) external payable returns (address gameAddress) {
         require(msg.value == stake, "Incorrect stake");
 
-        BlindBoxGame game = new BlindBoxGame{value: msg.value}(
+        FlipStakeGame game = new BlindBoxGame{value: msg.value}(
             msg.sender,
             commitHash,
             stake,
