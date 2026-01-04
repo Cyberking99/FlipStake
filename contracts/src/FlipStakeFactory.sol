@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import "./BlindBoxGame.sol";
 
-contract BlindBoxFactory {
+contract FlipStakeFactory {
     address[] public games;
 
     event GameCreated(
