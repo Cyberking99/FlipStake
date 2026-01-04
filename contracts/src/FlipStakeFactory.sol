@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "./BlindBoxGame.sol";
+import "./FlipStakeGame.sol";
 
 contract FlipStakeFactory {
     address[] public games;
