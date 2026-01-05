@@ -26,11 +26,11 @@ export function WalletConnect({ size = "default" }: WalletConnectProps) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size={size}>
+          <Button className="bg-accent" variant="outline" size={size}>
             {truncatedAddress}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent className="border-accent">
           <DropdownMenuItem onClick={() => open()}>My Account</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => disconnect()}>
