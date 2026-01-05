@@ -6,10 +6,11 @@ import { createAppKit } from "@reown/appkit/react";
 import { baseSepolia } from "@reown/appkit/networks";
 import React, { type ReactNode } from "react";
 import { cookieToInitialState, WagmiProvider, type Config } from "wagmi";
-// import { PROJECT_NAME, PROJECT_DESCRIPTION, PROJECT_URL } from '@/lib/constants'
-const PROJECT_NAME = "FlipStake";
-const PROJECT_DESCRIPTION = "Stake, Flip, Win!";
-const PROJECT_URL = "https://flipstake.vercel.app";
+import {
+  PROJECT_NAME,
+  PROJECT_DESCRIPTION,
+  PROJECT_URL,
+} from "@/lib/constants";
 
 const queryClient = new QueryClient();
 
