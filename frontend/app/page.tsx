@@ -35,7 +35,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground text-balance max-w-xl mx-auto">
-              Stake ETH. Pick a card. Winner takes all.
+              Stake. Pick a card. Winner takes all.
             </p>
           </div>
 
