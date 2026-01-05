@@ -42,7 +42,12 @@ export function WalletConnect({ size = "default" }: WalletConnectProps) {
   }
 
   return (
-    <Button variant="outline" size={size} onClick={() => open()}>
+    <Button
+      className="bg-accent"
+      variant="outline"
+      size={size}
+      onClick={() => open()}
+    >
       Connect Wallet
     </Button>
   );
