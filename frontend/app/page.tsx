@@ -63,7 +63,7 @@ export default function Home() {
           {/* Info Section */}
           <div className="pt-12 border-t border-border">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div className="space-y-2">
+              <div className="space-y-2 border-r-accent border-r-2">
                 <div className="text-sm font-semibold text-accent">FAIR</div>
                 <p className="text-sm text-muted-foreground">
                   Cryptographic commit-reveal ensures fairness
@@ -75,7 +75,7 @@ export default function Home() {
                   Built on Base for lightning-quick transactions
                 </p>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 border-l-accent border-l-2">
                 <div className="text-sm font-semibold text-accent">FINAL</div>
                 <p className="text-sm text-muted-foreground">
                   Smart contracts guarantee winner takes all
