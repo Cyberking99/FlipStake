@@ -1,5 +1,6 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { WalletConnect } from "@/components/wallet-connect";
 
 export default function Home() {
   return (
@@ -9,11 +10,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-md bg-accent flex items-center justify-center">
-              <span className="text-accent-foreground font-bold text-lg">⚡</span>
+              <span className="text-accent-foreground font-bold text-lg">
+                ⚡
+              </span>
             </div>
             <span className="text-xl font-bold text-foreground">FlipStake</span>
           </div>
-          <Button variant="outline">Connect Wallet</Button>
+          <WalletConnect />
         </div>
       </header>
 
@@ -39,12 +42,19 @@ export default function Home() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <Link href="/create">
-              <Button size="lg" className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-accent-foreground"
+              >
                 Create Game
               </Button>
             </Link>
             <Link href="/join">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent">
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto bg-transparent"
+              >
                 Join Game
               </Button>
             </Link>
@@ -55,15 +65,21 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="space-y-2">
                 <div className="text-sm font-semibold text-accent">FAIR</div>
-                <p className="text-sm text-muted-foreground">Cryptographic commit-reveal ensures fairness</p>
+                <p className="text-sm text-muted-foreground">
+                  Cryptographic commit-reveal ensures fairness
+                </p>
               </div>
               <div className="space-y-2">
                 <div className="text-sm font-semibold text-accent">FAST</div>
-                <p className="text-sm text-muted-foreground">Built on Base for lightning-quick transactions</p>
+                <p className="text-sm text-muted-foreground">
+                  Built on Base for lightning-quick transactions
+                </p>
               </div>
               <div className="space-y-2">
                 <div className="text-sm font-semibold text-accent">FINAL</div>
-                <p className="text-sm text-muted-foreground">Smart contracts guarantee winner takes all</p>
+                <p className="text-sm text-muted-foreground">
+                  Smart contracts guarantee winner takes all
+                </p>
               </div>
             </div>
           </div>
@@ -90,5 +106,5 @@ export default function Home() {
         </div>
       </footer>
     </main>
-  )
+  );
 }

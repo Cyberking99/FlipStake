@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { WalletConnect } from "./wallet-connect";
 
 export function GameHeader() {
   return (
@@ -16,11 +16,9 @@ export function GameHeader() {
             <div className="w-2 h-2 rounded-full bg-accent"></div>
             <span className="text-muted-foreground">Base Network</span>
           </div>
-          <Button variant="outline" size="sm">
-            Connect Wallet
-          </Button>
+          <WalletConnect size="sm" />
         </div>
       </div>
     </header>
-  )
+  );
 }
