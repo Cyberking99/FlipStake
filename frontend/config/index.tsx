@@ -6,6 +6,8 @@ import { PROJECT_ID } from "@/lib/constants";
 // Get projectId from https://cloud.reown.com
 export const projectId = PROJECT_ID;
 
+console.log(PROJECT_ID);
+
 if (!projectId) {
   throw new Error("Project ID is not defined");
 }
