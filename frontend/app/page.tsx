@@ -53,7 +53,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto bg-transparent"
+                className="w-full sm:w-auto bg-transparent border-accent"
               >
                 Join Game
               </Button>
