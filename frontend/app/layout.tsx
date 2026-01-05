@@ -32,12 +32,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookie = headers().get("cookie");
+  // For Next.js 15+, await the headers
+  const headersList = await headers();
+  const cookie = headersList.get("cookie");
+
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`font-sans antialiased`}>
