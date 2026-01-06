@@ -12,5 +12,7 @@ contract DeployScript is Script {
 
     function run() {
         vm.startBroadcast();
+
+        flipStakeFactory = new FlipStakeFactory();
     }
 }
