@@ -10,5 +10,7 @@ contract DeployScript is Script {
 
     function setUp() {}
 
-    function run() {}
+    function run() {
+        vm.startBroadcast();
+    }
 }
