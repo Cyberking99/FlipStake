@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.13;
 
-import {Script, Console} from "forge-std";
+import {Script} from "forge-std/Script.sol";
 import "../src/FlipStakeFactory.sol";
 
 contract DeployScript is Script {}
