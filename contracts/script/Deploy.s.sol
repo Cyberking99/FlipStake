@@ -5,4 +5,6 @@ pragma solidity ^0.8.13;
 import {Script} from "forge-std/Script.sol";
 import {FlipStakeFactory} from "../src/FlipStakeFactory.sol";
 
-contract DeployScript is Script {}
+contract DeployScript is Script {
+    FlipStakeFactory public flipStakeFactory;
+}
