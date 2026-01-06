@@ -8,7 +8,7 @@ import {FlipStakeFactory} from "../src/FlipStakeFactory.sol";
 contract DeployScript is Script {
     FlipStakeFactory public flipStakeFactory;
 
-    function setUp() {}
+    function setUp() public {}
 
     function run() {
         vm.startBroadcast();
