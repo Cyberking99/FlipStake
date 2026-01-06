@@ -14,5 +14,7 @@ contract DeployScript is Script {
         vm.startBroadcast();
 
         flipStakeFactory = new FlipStakeFactory();
+
+        vm.stopBroadcast();
     }
 }
