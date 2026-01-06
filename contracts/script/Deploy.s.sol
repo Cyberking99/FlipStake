@@ -9,4 +9,6 @@ contract DeployScript is Script {
     FlipStakeFactory public flipStakeFactory;
 
     function setUp() {}
+
+    function run() {}
 }
