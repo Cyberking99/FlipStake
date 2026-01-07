@@ -5,3 +5,4 @@
 [2026-01-07 23:52:47] Activity check: OK - Adjust color palette for dark mode
 [2026-01-07 23:52:47] Activity check: OK - Update dependencies
 [2026-01-07 23:52:47] Activity check: OK - Add comments to complex logic
+[2026-01-07 23:52:47] Activity check: OK - Update README with usage instructions
