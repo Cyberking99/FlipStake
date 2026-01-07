@@ -26,3 +26,4 @@
 [2026-01-08 00:25:18] Activity check: OK - Reorder imports
 [2026-01-08 00:25:18] Activity check: OK - Clean up unused imports
 [2026-01-08 00:25:18] Activity check: OK - Fix mobile layout glitches
+[2026-01-08 00:25:18] Activity check: OK - Add TODOs for future improvements
