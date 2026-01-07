@@ -1,27 +1,32 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useCreateGame } from "@/hooks/useCreateGame"
+import { cn } from "@/lib/utils"
 
 interface CreateGameFormProps {
-  onGameCreated?: (gameId: string) => void
+  onGameCreated?: (gameId: string, stake: string) => void
 }
 
 export function CreateGameForm({ onGameCreated }: CreateGameFormProps) {
   const [stakeAmount, setStakeAmount] = useState("")
-  const [isCreating, setIsCreating] = useState(false)
+  const [selectedCard, setSelectedCard] = useState<"left" | "right">("left")
+
+  const { createGame, isPending, isConfirmed, gameAddress } = useCreateGame()
+
+  useEffect(() => {
+    if (isConfirmed && gameAddress) {
+      onGameCreated?.(gameAddress, stakeAmount)
+    }
+  }, [isConfirmed, gameAddress, onGameCreated, stakeAmount])
 
   const handleCreateGame = async () => {
-    setIsCreating(true)
-    // Simulate game creation
-    setTimeout(() => {
-      const gameId = Math.random().toString(36).substring(2, 9).toUpperCase()
-      onGameCreated?.(gameId)
-      setIsCreating(false)
-    }, 1500)
+    if (!stakeAmount || !selectedCard) return
+    await createGame(stakeAmount, selectedCard === "left" ? 0 : 1)
   }
 
   return (
@@ -40,15 +45,47 @@ export function CreateGameForm({ onGameCreated }: CreateGameFormProps) {
             <Input
               id="stake"
               type="number"
-              placeholder="0.5"
+              placeholder="0.01"
               value={stakeAmount}
               onChange={(e) => setStakeAmount(e.target.value)}
               className="bg-input border-border text-foreground placeholder:text-muted-foreground pl-4"
-              step="0.01"
+              step="0.001"
               min="0"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">ETH</span>
           </div>
+        </div>
+
+        {/* Card Selection */}
+        <div className="space-y-2">
+          <Label className="text-foreground">Choose Winning Card</Label>
+          <div className="grid grid-cols-2 gap-4">
+            <div
+              onClick={() => setSelectedCard("left")}
+              className={cn(
+                "cursor-pointer rounded-lg border-2 p-4 text-center transition-all",
+                selectedCard === "left"
+                  ? "border-accent bg-accent/10 text-accent"
+                  : "border-muted hover:border-accent/50"
+              )}
+            >
+              <div className="font-bold">LEFT</div>
+            </div>
+            <div
+              onClick={() => setSelectedCard("right")}
+              className={cn(
+                "cursor-pointer rounded-lg border-2 p-4 text-center transition-all",
+                selectedCard === "right"
+                  ? "border-accent bg-accent/10 text-accent"
+                  : "border-muted hover:border-accent/50"
+              )}
+            >
+              <div className="font-bold">RIGHT</div>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            This choice is hidden until you reveal it.
+          </p>
         </div>
 
         {/* Network Info */}
@@ -74,10 +111,10 @@ export function CreateGameForm({ onGameCreated }: CreateGameFormProps) {
         {/* Create Button */}
         <Button
           onClick={handleCreateGame}
-          disabled={!stakeAmount || isCreating}
+          disabled={!stakeAmount || isPending}
           className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
         >
-          {isCreating ? "Creating Game..." : "Create Game"}
+          {isPending ? "Creating Game..." : "Create Game"}
         </Button>
       </CardContent>
     </Card>

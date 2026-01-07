@@ -8,8 +8,8 @@ import { WaitingRoom } from "@/components/waiting-room"
 export default function CreatePage() {
   const [gameCreated, setGameCreated] = useState<{ id: string; stake: string } | null>(null)
 
-  const handleGameCreated = (gameId: string) => {
-    setGameCreated({ id: gameId, stake: "0.5" })
+  const handleGameCreated = (gameId: string, stake: string) => {
+    setGameCreated({ id: gameId, stake })
   }
 
   return (
