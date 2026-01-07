@@ -29,11 +29,9 @@ export default function JoinGamePage() {
 
   useEffect(() => {
     if (isConfirmed) {
-      // Redirect to game page or show success
-      // For now, reload to reflect state (or maybe we need a dedicated game view)
-      console.log("Joined successfully")
+      router.push(`/game/${gameId}`)
     }
-  }, [isConfirmed])
+  }, [isConfirmed, gameId, router])
 
   const handleJoinGame = () => {
     if (stake) {

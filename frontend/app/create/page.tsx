@@ -1,27 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { GameHeader } from "@/components/game-header"
 import { CreateGameForm } from "@/components/create-game-form"
-import { WaitingRoom } from "@/components/waiting-room"
 
 export default function CreatePage() {
-  const [gameCreated, setGameCreated] = useState<{ id: string; stake: string } | null>(null)
+  const router = useRouter()
 
-  const handleGameCreated = (gameId: string, stake: string) => {
-    setGameCreated({ id: gameId, stake })
+  const handleGameCreated = (id: string, stake: string) => {
+    router.push(`/game/${id}`)
   }
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
       <GameHeader />
-
-      <div className="flex-1 flex items-center justify-center px-4 py-20">
-        {gameCreated ? (
-          <WaitingRoom gameId={gameCreated.id} stakeAmount={gameCreated.stake} />
-        ) : (
-          <CreateGameForm onGameCreated={handleGameCreated} />
-        )}
+      <div className="flex-1 flex items-center justify-center px-4 py-12">
+        <CreateGameForm onGameCreated={handleGameCreated} />
       </div>
     </main>
   )
