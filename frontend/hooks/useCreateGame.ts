@@ -34,6 +34,7 @@ export function useCreateGame() {
     }, [receipt]);
 
     const createGame = async (stakeAmount: string, winningCard: 0 | 1) => {
+        console.log("createGame called with:", { stakeAmount, winningCard });
         try {
             // 1. Generate random salt (32 bytes)
             const salt = crypto.getRandomValues(new Uint8Array(32));
@@ -54,6 +55,13 @@ export function useCreateGame() {
             const revealTimeout = 86400n;
             const amount = parseEther(stakeAmount);
 
+
+            console.log("Calling writeContract with:", {
+                address: FLIP_STAKE_FACTORY_ADDRESS,
+                args: [commitHash, amount, joinTimeout, revealTimeout],
+                value: amount,
+            });
+
             writeContract(
                 {
                     address: FLIP_STAKE_FACTORY_ADDRESS,
@@ -72,6 +80,9 @@ export function useCreateGame() {
                         };
                         localStorage.setItem(`flipstake_secret_${txHash}`, JSON.stringify(secrets));
                         localStorage.setItem("flipstake_latest_secret", JSON.stringify(secrets));
+                    },
+                    onError: (error) => {
+                        console.error("writeContract error:", error);
                     },
                 }
             );
