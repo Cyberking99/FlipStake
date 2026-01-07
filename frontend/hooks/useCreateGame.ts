@@ -35,7 +35,6 @@ export function useCreateGame() {
     }, [receipt]);
 
     const createGame = async (stakeAmount: string, winningCard: 0 | 1) => {
-        console.log("createGame called with:", { stakeAmount, winningCard, isConnected, connectorId: connector?.id });
         try {
             // 1. Generate random salt (32 bytes)
             const salt = crypto.getRandomValues(new Uint8Array(32));
@@ -56,12 +55,6 @@ export function useCreateGame() {
             const revealTimeout = 86400n;
             const amount = parseEther(stakeAmount);
 
-
-            console.log("Calling writeContract with:", {
-                address: FLIP_STAKE_FACTORY_ADDRESS,
-                args: [commitHash, amount, joinTimeout, revealTimeout],
-                value: amount,
-            });
 
             writeContract(
                 {
