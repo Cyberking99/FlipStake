@@ -29,7 +29,14 @@ export function useCreateGame() {
 
             if (logs.length > 0) {
                 // logs[0].args.game is the address
-                setGameAddress(logs[0].args.game);
+                const address = logs[0].args.game;
+                setGameAddress(address);
+
+                // Map the latest secret to this specific game address
+                const latest = localStorage.getItem("flipstake_latest_secret");
+                if (latest && address) {
+                    localStorage.setItem(`flipstake_game_${address}`, latest);
+                }
             }
         }
     }, [receipt]);
