@@ -5,10 +5,11 @@ import { useAccount } from "wagmi";
 import { useGameData } from "@/hooks/useGameData";
 import { useChooseCard } from "@/hooks/useChooseCard";
 import { useRevealGame } from "@/hooks/useRevealGame";
+import { useGameActions } from "@/hooks/useGameActions";
 import { GameHeader } from "@/components/game-header";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Copy, Trophy } from "lucide-react";
+import { Loader2, Copy, Trophy, TimerOff } from "lucide-react";
 import { formatEther } from "viem";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -26,11 +27,14 @@ export default function GamePage() {
     stake,
     hasChosenA,
     hasChosenB,
+    joinDeadline,
+    revealDeadline,
     refetch
   } = useGameData(gameId);
 
   const { chooseCard, isPending: isChoosing, isConfirmed: isChosen } = useChooseCard();
   const { revealGame, isPending: isRevealing, isConfirmed: isRevealed, canReveal } = useRevealGame(gameId);
+  const { cancelGame, claimTimeout, isPending: isActionPending } = useGameActions();
 
   // Poll for updates
   useEffect(() => {
@@ -64,6 +68,10 @@ export default function GamePage() {
   const isPlayerB = address && playerB && address.toLowerCase() === playerB.toLowerCase();
   const isSpectator = !isPlayerA && !isPlayerB;
 
+  const now = Math.floor(Date.now() / 1000);
+  const canCancel = isPlayerA && joinDeadline && now > Number(joinDeadline);
+  const canClaimTimeout = (isPlayerA || isPlayerB) && revealDeadline && now > Number(revealDeadline);
+
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
     toast("Link copied to clipboard");
@@ -80,6 +88,19 @@ export default function GamePage() {
                 <Copy className="h-4 w-4" /> Share Game Link
               </Button>
             </div>
+            {canCancel && (
+              <div className="pt-2 border-t">
+                <p className="text-xs text-muted-foreground mb-2">No one joined in time.</p>
+                <Button
+                  variant="destructive"
+                  className="w-full"
+                  onClick={() => cancelGame(gameId)}
+                  disabled={isActionPending}
+                >
+                  <TimerOff className="mr-2 h-4 w-4" /> Cancel & Refund
+                </Button>
+              </div>
+            )}
           </div>
         );
       case 1: // JOINED

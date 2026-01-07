@@ -17,6 +17,8 @@ export function useGameData(gameAddress: string) {
             { ...contract, functionName: "hasChosenB" },
             { ...contract, functionName: "choiceA" },
             { ...contract, functionName: "choiceB" },
+            { ...contract, functionName: "joinDeadline" },
+            { ...contract, functionName: "revealDeadline" },
         ],
     });
 
@@ -27,13 +29,15 @@ export function useGameData(gameAddress: string) {
     return {
         isLoading: false,
         refetch,
-        gameState: data[0].result as number,
+        gameState: Number(data[0].result),
         playerA: data[1].result as string,
         playerB: data[2].result as string,
-        stake: data[3].result as bigint,
+        stake: data[3].result as unknown as bigint,
         hasChosenA: data[4].result as boolean,
         hasChosenB: data[5].result as boolean,
-        choiceA: data[6].result as number,
-        choiceB: data[7].result as number,
+        choiceA: Number(data[6].result),
+        choiceB: Number(data[7].result),
+        joinDeadline: data[8].result as unknown as bigint,
+        revealDeadline: data[9].result as unknown as bigint,
     };
 }
