@@ -131,6 +131,40 @@ contract FlipStakeGame is ReentrancyGuard {
     }
 
     // ------------------------
+    // TIMEOUTS
+    // ------------------------
+    function cancel() external nonReentrant {
+        require(msg.sender == playerA, "Only creator");
+        require(state == State.CREATED, "Cannot cancel");
+        require(block.timestamp > joinDeadline, "Join deadline not passed");
+
+        state = State.FINISHED;
+        _refund(playerA);
+    }
+
+    function claimTimeout() external nonReentrant {
+        require(state == State.JOINED || state == State.CHOOSING, "Game not active");
+        require(block.timestamp > revealDeadline, "Deadline not passed");
+
+        address winner;
+
+        if (!hasChosenB) {
+            // Player B didn't choose in time. Player A wins.
+            winner = playerA;
+        } else if (!hasChosenA) {
+            // Player A didn't choose in time. Player B wins.
+            winner = playerB;
+        } else {
+            // Both chose, but Player A didn't reveal. Player B wins.
+            winner = playerB;
+        }
+
+        state = State.FINISHED;
+        emit Revealed(winner);
+        _payout(winner);
+    }
+
+    // ------------------------
     // INTERNAL
     // ------------------------
     function _payout(address winner) internal {
