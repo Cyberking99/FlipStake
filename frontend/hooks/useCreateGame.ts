@@ -1,4 +1,4 @@
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useWriteContract, useWaitForTransactionReceipt, useAccount } from "wagmi";
 import { parseEther, keccak256, encodePacked, type Hex, parseEventLogs } from "viem";
 import {
     FLIP_STAKE_FACTORY_ADDRESS,
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 export function useCreateGame() {
     const { data: hash, writeContract, isPending, error } = useWriteContract();
+    const { connector, isConnected } = useAccount();
     const [gameAddress, setGameAddress] = useState<string | null>(null);
 
     const {
@@ -34,7 +35,7 @@ export function useCreateGame() {
     }, [receipt]);
 
     const createGame = async (stakeAmount: string, winningCard: 0 | 1) => {
-        console.log("createGame called with:", { stakeAmount, winningCard });
+        console.log("createGame called with:", { stakeAmount, winningCard, isConnected, connectorId: connector?.id });
         try {
             // 1. Generate random salt (32 bytes)
             const salt = crypto.getRandomValues(new Uint8Array(32));
