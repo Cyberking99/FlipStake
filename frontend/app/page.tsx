@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { WalletConnect } from "@/components/wallet-connect";
+import { GameHistoryList } from "@/components/game-history-list";
 
 export default function Home() {
   return (
@@ -58,6 +59,10 @@ export default function Home() {
                 Join Game
               </Button>
             </Link>
+          </div>
+
+          <div className="w-full flex justify-center mt-12 mb-8">
+            <GameHistoryList />
           </div>
 
           {/* Info Section */}
