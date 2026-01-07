@@ -4,18 +4,41 @@ import { useParams } from "next/navigation"
 import { GameHeader } from "@/components/game-header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { useGameStore } from "@/lib/game-store"
+import { FLIP_STAKE_GAME_ABI } from "@/lib/contracts"
+import { useJoinGame } from "@/hooks/useJoinGame"
+import { useReadContract, useAccount } from "wagmi"
+import { formatEther } from "viem"
+import { Loader2 } from "lucide-react"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function JoinGamePage() {
   const params = useParams()
+  const router = useRouter()
   const gameId = params.gameId as string
-  const { joinGame } = useGameStore()
+
+  const { joinGame, isPending, isConfirmed } = useJoinGame()
+  const { isConnected } = useAccount()
+
+  // Read stake from contract
+  const { data: stake, isLoading: isLoadingStake } = useReadContract({
+    address: gameId as `0x${string}`,
+    abi: FLIP_STAKE_GAME_ABI,
+    functionName: "stake",
+  })
+
+  useEffect(() => {
+    if (isConfirmed) {
+      // Redirect to game page or show success
+      // For now, reload to reflect state (or maybe we need a dedicated game view)
+      console.log("Joined successfully")
+    }
+  }, [isConfirmed])
 
   const handleJoinGame = () => {
-    joinGame(gameId, {
-      address: "0x742d...8d0b",
-      stake: 0.5,
-    })
+    if (stake) {
+      joinGame(gameId, stake)
+    }
   }
 
   return (
@@ -32,21 +55,30 @@ export default function JoinGamePage() {
             <div className="space-y-3 p-4 bg-muted/30 rounded-lg border border-border">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Game ID</span>
-                <span className="font-mono text-foreground font-semibold">{gameId}</span>
+                <span className="font-mono text-foreground font-semibold text-xs">{gameId}</span>
               </div>
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Stake Amount</span>
-                <span className="text-foreground font-semibold">0.5 ETH</span>
+                <span className="text-foreground font-semibold">
+                  {isLoadingStake ? <Loader2 className="h-4 w-4 animate-spin" /> : stake ? `${formatEther(stake)} ETH` : "Unknown"}
+                </span>
               </div>
               <div className="flex items-center justify-between text-sm border-t border-border pt-3">
                 <span className="text-muted-foreground">Total Pot</span>
-                <span className="text-accent font-semibold">1.0 ETH</span>
+                <span className="text-accent font-semibold">
+                  {stake ? `${formatEther(stake * 2n)} ETH` : "..."}
+                </span>
               </div>
             </div>
 
-            <Button onClick={handleJoinGame} className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-              Join Game
+            <Button
+              onClick={handleJoinGame}
+              disabled={!stake || isPending || !isConnected}
+              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+            >
+              {isPending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Joining...</> : "Join Game"}
             </Button>
+            {!isConnected && <p className="text-xs text-center text-destructive">Please connect your wallet first</p>}
           </CardContent>
         </Card>
       </div>
