@@ -5,3 +5,4 @@
 [2026-01-07 23:50:59] Activity check: OK - Format code with prettier
 [2026-01-07 23:50:59] Activity check: OK - Refactor game initialization logic
 [2026-01-07 23:50:59] Activity check: OK - Bump version number
+[2026-01-07 23:50:59] Activity check: OK - Clean up unused imports
