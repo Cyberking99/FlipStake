@@ -4,3 +4,4 @@
 [2026-01-09 22:18:28] Activity check: OK - Fix intermittent test failure
 [2026-01-09 22:18:28] Activity check: OK - Format code with prettier
 [2026-01-09 22:18:28] Activity check: OK - Refactor game initialization logic
+[2026-01-09 22:18:28] Activity check: OK - Standardize error messages
